@@ -16,16 +16,19 @@ bg_im = pygame.transform.scale(bg_im, (W, H))  # ставлю его на фон
 
 manager = pygame_gui.UIManager((W, H))
 
-mm = MainMenu(manager, W, H)  # подгружаю меню
+mm = MainMenu(manager, W, H, screen)  # подгружаю меню
+single_player = SinglePlayer(manager, screen)
+multi_player = MultiPlayer(manager, screen)
 settings = Settings(manager)
-single_player = SinglePlayer(manager)
-multi_player = MultiPlayer(manager)
+
 
 clock = pygame.time.Clock()
 
 in_main = True
 select_section = None
 while True:
+    screen.blit(bg_im, (0, 0))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -36,20 +39,27 @@ while True:
                     in_main = False
                 else:
                     if select_section == 1:
-                        select_section = single_player.close_this(event.ui_element, mm)
+                        select_section = single_player.btn_press_detection(event.ui_element, mm)
                         in_main = True
                     if select_section == 2:
-                        select_section = multi_player.close_this(event.ui_element, mm)
+                        select_section = multi_player.btn_press_detection(event.ui_element, mm)
                         in_main = True
                     if select_section == 3:
-                        select_section = settings.close_this(event.ui_element, mm)
+                        select_section = settings.btn_press_detection(event.ui_element, mm)
                         in_main = True
 
         manager.process_events(event)
 
-    manager.update(clock.tick())
-    screen.blit(bg_im, (0, 0))
+    if select_section is None:
+        mm.always_show()
+    if select_section == 1:
+        single_player.always_show()
+    if select_section == 2:
+        multi_player.always_show()
+    if select_section == 3:
+        pass
 
+    manager.update(clock.tick())
     manager.draw_ui(screen)
     pygame.display.update()
     clock.tick(FPS)

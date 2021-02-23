@@ -4,10 +4,11 @@ import sys
 
 
 class MainMenu:
-    def __init__(self, manager, w, h):
+    def __init__(self, manager, w, h, screen):
         self.manager = manager
         self.w = w
         self.h = h
+        self.screen = screen
         btn_size_x = 220
         w_center = (self.w - btn_size_x) // 2
 
@@ -37,6 +38,7 @@ class MainMenu:
         if ui_el == self.multi_player_btn:
             self.hide_all()
             mp.show_all()
+            mp.always_show()
             return 2
         if ui_el == self.settings_btn:
             self.hide_all()
@@ -56,6 +58,94 @@ class MainMenu:
         self.multi_player_btn.show()
         self.settings_btn.show()
         self.exit_btn.show()
+
+    def always_show(self):
+        text_creator('Заражённый мир', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
+
+
+class SinglePlayer:
+    def __init__(self, manager, screen):
+        super().__init__()
+        self.manager = manager
+        self.screen = screen
+
+        self.back_btn = self.create_btn(20, 20, 100, 40, '<--')
+        self.continue_btn = self.create_btn(1700, 980, 150, 60, 'продолжить')
+
+        self.hide_all()
+
+    def create_btn(self, x, y, w, h, txt):
+        btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((x, y), (w, h)),
+            text=f'{txt}',
+            manager=self.manager
+        )
+        return btn
+
+    def hide_all(self):
+        self.back_btn.hide()
+        self.continue_btn.hide()
+
+    def show_all(self):
+        self.back_btn.show()
+        self.continue_btn.show()
+
+    def close_this(self, main):
+        self.hide_all()
+        main.show_all()
+        return None
+
+    def btn_press_detection(self, ui_el, main):
+        if ui_el == self.back_btn:
+            self.close_this(main)
+        else:
+            return 1
+
+    def always_show(self):
+        text_creator('Одиночная игра', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
+
+
+def text_creator(txt, screen, size, color=(0, 0, 0), xy=(0, 0), font=None, smoothing=False):
+    text_parameter = pygame.font.Font(font, size)
+    text = text_parameter.render(txt, smoothing, color)
+    screen.blit(text, xy)
+
+
+class MultiPlayer:
+    def __init__(self, manager, screen):
+        super().__init__()
+        self.manager = manager
+        self.screen = screen
+
+        self.back_btn = self.create_btn(20, 20, 100, 40, '<--')
+
+        self.hide_all()
+
+    def create_btn(self, x, y, w, h, txt):
+        btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((x, y), (w, h)),
+            text=f'{txt}',
+            manager=self.manager
+        )
+        return btn
+
+    def hide_all(self):
+        self.back_btn.hide()
+
+    def show_all(self):
+        self.back_btn.show()
+
+    def close_this(self, main):
+        self.hide_all()
+        main.show_all()
+        return None
+
+    def btn_press_detection(self, ui_el, main):
+        if ui_el == self.back_btn:
+            self.close_this(main)
+
+    def always_show(self):
+        text_creator('В ДОРАБОТКЕ, возвращайтесь позже =)', self.screen, 80, (0, 0, 0), (400, 470), None, True)
 
 
 class Settings:
@@ -81,68 +171,11 @@ class Settings:
     def show_all(self):
         self.back_btn.show()
 
-    def close_this(self, ui_el, main):
-        if ui_el == self.back_btn:
-            self.hide_all()
-            main.show_all()
-            return None
-
-
-class SinglePlayer:
-    def __init__(self, manager):
-        super().__init__()
-        self.manager = manager
-
-        self.back_btn = self.create_btn(20, 20, 100, 40, '<--')
-
+    def close_this(self, main):
         self.hide_all()
+        main.show_all()
+        return None
 
-    def create_btn(self, x, y, w, h, txt):
-        btn = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((x, y), (w, h)),
-            text=f'{txt}',
-            manager=self.manager
-        )
-        return btn
-
-    def hide_all(self):
-        self.back_btn.hide()
-
-    def show_all(self):
-        self.back_btn.show()
-
-    def close_this(self, ui_el, main):
+    def btn_press_detection(self, ui_el, main):
         if ui_el == self.back_btn:
-            self.hide_all()
-            main.show_all()
-            return None
-
-
-class MultiPlayer:
-    def __init__(self, manager):
-        super().__init__()
-        self.manager = manager
-
-        self.back_btn = self.create_btn(20, 20, 100, 40, '<--')
-
-        self.hide_all()
-
-    def create_btn(self, x, y, w, h, txt):
-        btn = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((x, y), (w, h)),
-            text=f'{txt}',
-            manager=self.manager
-        )
-        return btn
-
-    def hide_all(self):
-        self.back_btn.hide()
-
-    def show_all(self):
-        self.back_btn.show()
-
-    def close_this(self, ui_el, main):
-        if ui_el == self.back_btn:
-            self.hide_all()
-            main.show_all()
-            return None
+            self.close_this(main)
