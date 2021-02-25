@@ -40,7 +40,8 @@ while True:
                 else:
                     if select_section == 1:
                         select_section = single_player.btn_press_detection(event.ui_element, mm)
-                        in_main = True
+                        if not select_section:
+                            in_main = True
                     if select_section == 2:
                         select_section = multi_player.btn_press_detection(event.ui_element, mm)
                         in_main = True

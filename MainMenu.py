@@ -3,6 +3,12 @@ import pygame_gui
 import sys
 
 
+def text_creator(txt, screen, size, color=(0, 0, 0), xy=(0, 0), font=None, smoothing=False):
+    text_parameter = pygame.font.Font(font, size)
+    text = text_parameter.render(txt, smoothing, color)
+    screen.blit(text, xy)
+
+
 class MainMenu:
     def __init__(self, manager, w, h, screen):
         self.manager = manager
@@ -70,6 +76,7 @@ class SinglePlayer:
         self.screen = screen
 
         self.back_btn = self.create_btn(20, 20, 100, 40, '<--')
+        self.create_world_btn = self.create_btn(1525, 980, 150, 60, 'создать')
         self.continue_btn = self.create_btn(1700, 980, 150, 60, 'продолжить')
 
         self.hide_all()
@@ -84,10 +91,12 @@ class SinglePlayer:
 
     def hide_all(self):
         self.back_btn.hide()
+        self.create_world_btn.hide()
         self.continue_btn.hide()
 
     def show_all(self):
         self.back_btn.show()
+        self.create_world_btn.show()
         self.continue_btn.show()
 
     def close_this(self, main):
@@ -103,12 +112,6 @@ class SinglePlayer:
 
     def always_show(self):
         text_creator('Одиночная игра', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
-
-
-def text_creator(txt, screen, size, color=(0, 0, 0), xy=(0, 0), font=None, smoothing=False):
-    text_parameter = pygame.font.Font(font, size)
-    text = text_parameter.render(txt, smoothing, color)
-    screen.blit(text, xy)
 
 
 class MultiPlayer:
