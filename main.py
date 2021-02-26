@@ -11,7 +11,7 @@ FPS = 60
 pygame.display.set_caption('Corupted world')  # название
 screen = pygame.display.set_mode((W, H))  # объявляю дисплей
 
-bg_im = pygame.image.load("data/bg/menu_bg.png").convert()  # подгружаю изображение
+bg_im = pygame.image.load("data/bg/menu_bg.jpg").convert()  # подгружаю изображение
 bg_im = pygame.transform.scale(bg_im, (W, H))  # ставлю его на фон
 
 manager = pygame_gui.UIManager((W, H))
