@@ -2,12 +2,13 @@ import pygame
 
 from recipes import recipes
 from Axe import Axe
+from PickAxe import PickAxe
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
         self.image = pygame.image.load("player.png")
-        self.image = pygame.transform.scale(self.image, (50, 50))
+        self.image = pygame.transform.scale(self.image, (75, 75))
         self.rect = self.image.get_rect()
         self.move_directions = []
         self.field_x = 0
@@ -52,16 +53,23 @@ class Player(pygame.sprite.Sprite):
 
         if not self.can_move:
             for i in range(3):
-                if i == self.active_in_menu:
+                if i == 1:
                     pygame.draw.rect(screen, "white", (10, 100 * i + 100, 100, 100), 6)
                 else:
                     pygame.draw.rect(screen, "white", (10, 100 * i + 100, 100, 100), 1)
-            axe = pygame.sprite.Group()
-            axe_sprite = Axe()
-            axe_sprite.rect.x = 10
-            axe_sprite.rect.y = 300
-            axe.add(axe_sprite)
-            axe.draw(screen)
+
+            k = 0
+            group = pygame.sprite.Group()
+            for i in recipes.keys():
+                if i == "axe":
+                    sprite = Axe()
+                elif i == "pickaxe":
+                    sprite = PickAxe()
+                sprite.rect.x = 10
+                sprite.rect.y = 100 * k + 100
+                group.add(sprite)
+                k += 1
+            group.draw(screen)
 
     def change_active(self, number):
         self.active = number
@@ -69,6 +77,10 @@ class Player(pygame.sprite.Sprite):
     def change_active_with_mouse(self, number):
         if 0 <= self.active + number <= 8:
             self.active += number
+        elif self.active + number <= 0:
+            self.active = 8
+        else:
+            self.active = 0
 
     def change_moving(self):
         self.can_move = not self.can_move

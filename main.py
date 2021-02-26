@@ -23,10 +23,10 @@ if __name__ == '__main__':
 
     ground = []
     map = pygame.sprite.Group()
-    for i in range(1080 // 50 + 1):
+    for i in range(1080 // 75 + 1):
         ground.append([])
-        for j in range(1920 // 50 + 1):
-            earth = Earth(50 * j, 50 * i)
+        for j in range(1920 // 75 + 1):
+            earth = Earth(75 * j, 75 * i)
             map.add(earth)
             ground[-1].append(earth)
 

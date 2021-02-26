@@ -1,14 +1,14 @@
 import pygame
 
 
-class Earth(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super(Earth, self).__init__()
-        self.image = pygame.image.load("ground.png")
-        self.image = pygame.transform.scale(self.image, (75, 75))
+class PickAxe(pygame.sprite.Sprite):
+    def __init__(self):
+        super(PickAxe, self).__init__()
+        self.image = pygame.image.load("pickaxe.png")
+        self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
-        self.field_x = x - 950
-        self.field_y = y - 530
+        self.field_x = -1
+        self.field_y = -1
 
     def render(self, player_sprite):
         if abs(self.field_x - player_sprite.field_x) <= 1920 and \
