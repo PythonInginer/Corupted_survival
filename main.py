@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 from MainMenu import *
+import Game
 import sys
 
 
@@ -26,7 +27,8 @@ clock = pygame.time.Clock()
 
 in_main = True
 select_section = None
-while True:
+running = True
+while running:
     screen.blit(bg_im, (0, 0))
 
     for event in pygame.event.get():
@@ -39,7 +41,7 @@ while True:
                     in_main = False
                 else:
                     if select_section == 1:
-                        select_section = single_player.btn_press_detection(event.ui_element, mm)
+                        select_section, running = single_player.btn_press_detection(event.ui_element, mm)
                         if not select_section:
                             in_main = True
                     if select_section == 2:
@@ -64,3 +66,5 @@ while True:
     manager.draw_ui(screen)
     pygame.display.update()
     clock.tick(FPS)
+
+Game.game()

@@ -31,7 +31,8 @@ class MainMenu:
         btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((x, y), (w, h)),
             text=f'{txt}',
-            manager=self.manager
+            manager=self.manager,
+
         )
         return btn
 
@@ -67,6 +68,7 @@ class MainMenu:
 
     def always_show(self):
         text_creator('Заражённый мир', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
+        text_creator('alpha V 0.0.1', self.screen, 30, (0, 0, 0), (20, 1060), None, True)
 
 
 class SinglePlayer:
@@ -102,11 +104,13 @@ class SinglePlayer:
     def close_this(self, main):
         self.hide_all()
         main.show_all()
-        return None
+        return None, True
 
     def btn_press_detection(self, ui_el, main):
         if ui_el == self.back_btn:
             self.close_this(main)
+        if ui_el == self.continue_btn:
+            return None, False
         else:
             return 1
 
