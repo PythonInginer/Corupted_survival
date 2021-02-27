@@ -81,14 +81,11 @@ class SinglePlayer:
         self.create_world_btn = self.create_btn(1525, 980, 150, 60, 'создать')
         self.continue_btn = self.create_btn(1700, 980, 150, 60, 'продолжить')
 
-        worlds = open('data/maps_names.txt', 'r').read().split()
+        self.create_worlds_menu()
 
-        self.worlds = pygame_gui.elements.UIDropDownMenu(
-            options_list=worlds,
-            starting_option=worlds[0],
-            manager=self.manager,
-            relative_rect=pygame.Rect((700, 400), (600, 100)),
-            expansion_height_limit=300
+        self.world_name = pygame_gui.elements.UITextEntryLine(
+            relative_rect=pygame.Rect((700, 350), (200, 40)),
+            manager=self.manager
         )
 
         self.hide_all()
@@ -106,12 +103,24 @@ class SinglePlayer:
         self.create_world_btn.hide()
         self.continue_btn.hide()
         self.worlds.hide()
+        self.world_name.hide()
 
     def show_all(self):
         self.back_btn.show()
         self.create_world_btn.show()
         self.continue_btn.show()
         self.worlds.show()
+        self.world_name.show()
+
+    def create_worlds_menu(self):
+        worlds = open('data/maps_names.txt', 'r').read().split()
+        self.worlds = pygame_gui.elements.UIDropDownMenu(
+            options_list=worlds,
+            starting_option=worlds[0],
+            manager=self.manager,
+            relative_rect=pygame.Rect((700, 400), (600, 100)),
+            expansion_height_limit=300
+        )
 
     def btn_press_detection(self, ui_el, main):
         if ui_el == self.back_btn:
@@ -120,7 +129,14 @@ class SinglePlayer:
             return 0, True, 'map.txt'
         if ui_el == self.continue_btn:
             map_name = self.worlds.selected_option
-            return 1, False, map_name
+            return 1, False, f'map.txt'
+        if ui_el == self.create_world_btn:
+            with open('data/maps_names.txt', 'a', encoding='utf8') as file:
+                file.write(self.world_name.text + '\n')
+            self.world_name.set_text('')
+            self.worlds.kill()
+            self.create_worlds_menu()
+            return 1, True, 'map.txt'
         else:
             return 1, True, 'map.txt'
 
