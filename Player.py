@@ -21,7 +21,6 @@ class Player(pygame.sprite.Sprite):
         self.active = 0
         self.active_in_menu = 0
         self.can_move = True
-        print()
 
         self.top_collider = pygame.Rect(1920 // 2, 1080 // 2 - 10, 55, 10)
         self.bottom_collider = pygame.Rect(1920 // 2, 1080 // 2 - 20 + self.rect.height, 55, 10)
