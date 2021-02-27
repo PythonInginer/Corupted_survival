@@ -113,7 +113,7 @@ def game(map_name):
             resources_list[i].render(player_sprite)
         resources.draw(screen)
 
-        player_sprite.move(tick)
+        player_sprite.move(tick, solid_tiles_group)
         player.draw(screen)
         player_sprite.draw_gui(screen)
 
