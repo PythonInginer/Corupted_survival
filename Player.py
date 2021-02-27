@@ -3,6 +3,8 @@ import pygame
 from recipes import recipes
 from Axe import Axe
 from PickAxe import PickAxe
+from Spear import Spear
+from Rope import Rope
 
 
 class Player(pygame.sprite.Sprite):
@@ -19,6 +21,8 @@ class Player(pygame.sprite.Sprite):
         self.active = 0
         self.active_in_menu = 0
         self.can_move = True
+
+        self.k = 0
 
     def move(self, tick):
         if self.can_move:
@@ -54,22 +58,27 @@ class Player(pygame.sprite.Sprite):
 
         if not self.can_move:
             for i in range(3):
-                if i == 1:
+                if i == self.active_in_menu:
                     pygame.draw.rect(screen, "white", (10, 100 * i + 100, 100, 100), 6)
                 else:
                     pygame.draw.rect(screen, "white", (10, 100 * i + 100, 100, 100), 1)
 
-            k = 0
+            o = self.k + 3
             group = pygame.sprite.Group()
-            for i in recipes.keys():
-                if i == "axe":
-                    sprite = Axe()
-                elif i == "pickaxe":
-                    sprite = PickAxe()
-                sprite.rect.x = 10
-                sprite.rect.y = 100 * k + 100
-                group.add(sprite)
-                k += 1
+            recipes_list = list(recipes)
+            for i in range(self.k, o):
+                if 100 <= 100 * k + 100 <= 300:
+                    if recipes_list[i] == "axe":
+                        sprite = Axe()
+                    elif recipes_list[i] == "pickaxe":
+                        sprite = PickAxe()
+                    elif recipes_list[i] == "spear":
+                        sprite = Spear()
+                    elif recipes_list[i] == "rope":
+                        sprite = Rope()
+                    sprite.rect.x = 10
+                    sprite.rect.y = 100 * (i - self.k) + 100
+                    group.add(sprite)
             group.draw(screen)
 
     def change_active(self, number):
@@ -87,5 +96,12 @@ class Player(pygame.sprite.Sprite):
         self.can_move = not self.can_move
 
     def change_active_in_menu(self, x):
-        if 0 <= self.active_in_menu - x <= 2:
+        if -1 <= self.active_in_menu - x <= 3:
             self.active_in_menu -= x
+        if 0 <= self.k - x <= 1 and (self.active_in_menu == 3 or self.active_in_menu == -1):
+            self.active_in_menu = 0
+            self.k -= x
+        if (self.active_in_menu == 3 or self.active_in_menu == -1) and self.k == 1:
+            self.active_in_menu = 2
+        if (self.active_in_menu == 3 or self.active_in_menu == -1) and self.k == 0:
+            self.active_in_menu = 0
