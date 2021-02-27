@@ -12,7 +12,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 
 class Tile(pygame.sprite.Sprite):  # создание тайла
-    def __init__(self, tile_type, pos_x, pos_y, rotate, ghost_tiles_group, solid_tiles_group):
+    def __init__(self, tile_type, pos_x, pos_y, rotate, ghost_tiles_group, solid_tiles_group, max_x, max_y):
         super().__init__()
 
         im, ghost_solid = tile_images[tile_type]
@@ -27,8 +27,8 @@ class Tile(pygame.sprite.Sprite):  # создание тайла
         self.image = im
         self.rect = self.image.get_rect()
 
-        self.field_x = TILE_WH * pos_x - 950
-        self.field_y = TILE_WH * pos_y - 530
+        self.field_x = TILE_WH * pos_x - TILE_WH * max_x // 2
+        self.field_y = TILE_WH * pos_y - TILE_WH * max_y // 2
 
     def render(self, player_sprite):
         if abs(self.field_x - player_sprite.field_x) <= 1920 and \
@@ -50,7 +50,7 @@ def generate_level(level, ghost_tiles_group, solid_tiles_group, ms):  # ренд
         ms.append([])
         for x in range(len(level[y])):
             tile_type, rotate = level[y][x].split('_')
-            tile = Tile(tile_type, x, y, int(rotate), ghost_tiles_group, solid_tiles_group)
+            tile = Tile(tile_type, x, y, int(rotate), ghost_tiles_group, solid_tiles_group, len(level[0]), len(level))
             ms[-1].append(tile)
     return ms
 
