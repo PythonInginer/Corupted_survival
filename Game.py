@@ -2,7 +2,7 @@ import pygame
 
 
 from Player import Player
-from Earth import Earth
+from LoadMap import generate_level
 from Stick import Stick
 from Flint import Flint
 
@@ -22,13 +22,9 @@ if __name__ == '__main__':
     tick = 0
 
     ground = []
-    map = pygame.sprite.Group()
-    for i in range(1080 // 75 + 1):
-        ground.append([])
-        for j in range(1920 // 75 + 1):
-            earth = Earth(75 * j, 75 * i)
-            map.add(earth)
-            ground[-1].append(earth)
+    solid_tiles_group = pygame.sprite.Group()
+    ghost_tiles_group = pygame.sprite.Group()
+    ground = generate_level('map.txt', ghost_tiles_group, solid_tiles_group, ground)
 
     resources_list = []
 
@@ -110,7 +106,8 @@ if __name__ == '__main__':
         for i in range(len(ground)):
             for j in range(len(ground[i])):
                 ground[i][j].render(player_sprite)
-        map.draw(screen)
+        ghost_tiles_group.draw(screen)
+        solid_tiles_group.draw(screen)
 
         for i in range(len(resources_list)):
             resources_list[i].render(player_sprite)

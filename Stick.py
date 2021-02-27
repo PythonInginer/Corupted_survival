@@ -6,7 +6,7 @@ import pygame
 class Stick(pygame.sprite.Sprite):
     def __init__(self):
         super(Stick, self).__init__()
-        self.image = pygame.image.load("stick.png")
+        self.image = pygame.image.load("data/materials/stick.png")
         self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
         self.field_x = random.randint(-950, 950)
