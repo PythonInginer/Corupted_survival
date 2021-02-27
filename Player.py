@@ -24,7 +24,7 @@ class Player(pygame.sprite.Sprite):
 
         self.k = 0
 
-    def move(self, tick):
+    def move(self, tick, solid_tiles_group):
         if self.can_move:
             self.step = round(200 * tick / 1000)
             for i in self.move_directions:
@@ -36,6 +36,17 @@ class Player(pygame.sprite.Sprite):
                     self.field_y += -self.step
                 elif i == "down":
                     self.field_y += self.step
+
+            for i in solid_tiles_group:
+                if self.rect.colliderect(i.rect):
+                    if not self.rect.x + self.rect.width > i.rect.x + i.rect.width:
+                        self.field_x += -self.step
+                    elif self.rect.x < i.rect.x + i.rect.width:
+                        self.field_x += self.step
+                    if not self.rect.y + self.rect.height > i.rect.y + i.rect.height:
+                        self.field_y += -self.step
+                    elif self.rect.y < i.rect.y + i.rect.height:
+                        self.field_y += self.step
 
     def draw_gui(self, screen):
         k = 0
