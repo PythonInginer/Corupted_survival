@@ -96,6 +96,11 @@ class Player(pygame.sprite.Sprite):
                     group.add(sprite)
             group.draw(screen)
 
+            self.exit_button = pygame.Rect(1600, 1000, 320, 80)
+            font = pygame.font.Font(None, 50)
+            text = font.render("Выйти в меню", True, (0, 0, 0))
+            screen.blit(text, (1600, 1000))
+
     def change_active(self, number):
         self.active = number
 
