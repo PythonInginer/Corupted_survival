@@ -22,6 +22,11 @@ class Player(pygame.sprite.Sprite):
         self.active_in_menu = 0
         self.can_move = True
 
+        self.top_collider = pygame.Rect(1920 // 2, 1080 // 2 - 10, 55, 10)
+        self.bottom_collider = pygame.Rect(1920 // 2, 1080 // 2 - 20 + self.rect.height, 55, 10)
+        self.left_collider = pygame.Rect(1920 // 2 - 10, 1080 // 2 - 10, 10, 75)
+        self.right_collider = pygame.Rect(1920 // 2 - 20 + self.rect.width, 1080 // 2 - 10, 10, 75)
+
         self.k = 0
 
     def move(self, tick, solid_tiles_group):
@@ -38,15 +43,14 @@ class Player(pygame.sprite.Sprite):
                     self.field_y += self.step
 
             for i in solid_tiles_group:
-                if self.rect.colliderect(i.rect):
-                    if not self.rect.x + self.rect.width > i.rect.x + i.rect.width:
-                        self.field_x += -self.step
-                    elif self.rect.x < i.rect.x + i.rect.width:
-                        self.field_x += self.step
-                    if not self.rect.y + self.rect.height > i.rect.y + i.rect.height:
-                        self.field_y += -self.step
-                    elif self.rect.y < i.rect.y + i.rect.height:
-                        self.field_y += self.step
+                if self.top_collider.colliderect(i.rect):
+                    self.field_y += self.step
+                elif self.bottom_collider.colliderect(i.rect):
+                    self.field_y += -self.step
+                elif self.left_collider.colliderect(i.rect):
+                    self.field_x += self.step
+                elif self.right_collider.colliderect(i.rect):
+                    self.field_x += -self.step
 
     def draw_gui(self, screen):
         k = 0
