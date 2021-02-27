@@ -4,7 +4,6 @@ from MainMenu import *
 import Game
 import sys
 
-
 pygame.init()
 W, H = pygame.display.Info().current_w, pygame.display.Info().current_h
 FPS = 60
@@ -22,7 +21,6 @@ single_player = SinglePlayer(manager, screen)
 multi_player = MultiPlayer(manager, screen)
 settings = Settings(manager)
 
-
 clock = pygame.time.Clock()
 
 in_main = True
@@ -38,28 +36,29 @@ while running:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if in_main:
                     select_section = mm.detect(event.ui_element, (single_player, multi_player, settings))
-                    in_main = False
+                    if select_section in (1, 2, 3):
+                        in_main = False
                 else:
                     if select_section == 1:
                         select_section, running = single_player.btn_press_detection(event.ui_element, mm)
-                        if not select_section:
+                        if select_section == 0:
                             in_main = True
-                    if select_section == 2:
+                    elif select_section == 2:
                         select_section = multi_player.btn_press_detection(event.ui_element, mm)
                         in_main = True
-                    if select_section == 3:
+                    elif select_section == 3:
                         select_section = settings.btn_press_detection(event.ui_element, mm)
                         in_main = True
 
         manager.process_events(event)
 
-    if select_section is None:
+    if select_section == 0:
         mm.always_show()
-    if select_section == 1:
+    elif select_section == 1:
         single_player.always_show()
-    if select_section == 2:
+    elif select_section == 2:
         multi_player.always_show()
-    if select_section == 3:
+    elif select_section == 3:
         pass
 
     manager.update(clock.tick())

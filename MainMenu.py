@@ -101,18 +101,15 @@ class SinglePlayer:
         self.create_world_btn.show()
         self.continue_btn.show()
 
-    def close_this(self, main):
-        self.hide_all()
-        main.show_all()
-        return None, True
-
     def btn_press_detection(self, ui_el, main):
         if ui_el == self.back_btn:
-            self.close_this(main)
+            self.hide_all()
+            main.show_all()
+            return 0, True
         if ui_el == self.continue_btn:
-            return None, False
+            return 1, False
         else:
-            return 1
+            return 1, True
 
     def always_show(self):
         text_creator('Одиночная игра', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
