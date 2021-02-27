@@ -10,7 +10,7 @@ from Rope import Rope
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
-        self.image = pygame.image.load("data/skins/player.png")
+        self.image = pygame.image.load("data/skins/player2.png")
         self.image = pygame.transform.scale(self.image, (75, 75))
         self.rect = self.image.get_rect()
         self.move_directions = []
