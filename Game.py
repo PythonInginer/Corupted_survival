@@ -7,7 +7,7 @@ from Stick import Stick
 from Flint import Flint
 
 
-def game(main):
+def game(map_name):
     pygame.init()
     size = width, height = 1920, 1080
     screen = pygame.display.set_mode(size)
@@ -24,7 +24,7 @@ def game(main):
     ground = []
     solid_tiles_group = pygame.sprite.Group()
     ghost_tiles_group = pygame.sprite.Group()
-    ground = generate_level('map.txt', ghost_tiles_group, solid_tiles_group, ground)
+    ground = generate_level(f'{map_name}', ghost_tiles_group, solid_tiles_group, ground)
 
     resources_list = []
 
@@ -100,11 +100,6 @@ def game(main):
             if not player_sprite.can_move:
                 if event.type == pygame.MOUSEWHEEL:
                     player_sprite.change_active_in_menu(event.y)
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == pygame.BUTTON_LEFT:
-                        if player_sprite.exit_button.collidepoint(event.pos[0], event.pos[1]):
-                            running = False
-                            main()
             elif event.type == pygame.MOUSEWHEEL:
                 player_sprite.change_active_with_mouse(event.y)
 

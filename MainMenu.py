@@ -81,6 +81,16 @@ class SinglePlayer:
         self.create_world_btn = self.create_btn(1525, 980, 150, 60, 'создать')
         self.continue_btn = self.create_btn(1700, 980, 150, 60, 'продолжить')
 
+        worlds = open('data/maps_names.txt', 'r').read().split()
+
+        self.worlds = pygame_gui.elements.UIDropDownMenu(
+            options_list=worlds,
+            starting_option=worlds[0],
+            manager=self.manager,
+            relative_rect=pygame.Rect((700, 400), (600, 100)),
+            expansion_height_limit=300
+        )
+
         self.hide_all()
 
     def create_btn(self, x, y, w, h, txt):
@@ -95,21 +105,24 @@ class SinglePlayer:
         self.back_btn.hide()
         self.create_world_btn.hide()
         self.continue_btn.hide()
+        self.worlds.hide()
 
     def show_all(self):
         self.back_btn.show()
         self.create_world_btn.show()
         self.continue_btn.show()
+        self.worlds.show()
 
     def btn_press_detection(self, ui_el, main):
         if ui_el == self.back_btn:
             self.hide_all()
             main.show_all()
-            return 0, True
+            return 0, True, 'map.txt'
         if ui_el == self.continue_btn:
-            return 1, False
+            map_name = self.worlds.selected_option
+            return 1, False, map_name
         else:
-            return 1, True
+            return 1, True, 'map.txt'
 
     def always_show(self):
         text_creator('Одиночная игра', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
