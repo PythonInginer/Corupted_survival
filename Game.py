@@ -7,7 +7,7 @@ from Stick import Stick
 from Flint import Flint
 
 
-def game():
+def game(map_name):
     pygame.init()
     size = width, height = 1920, 1080
     screen = pygame.display.set_mode(size)
@@ -24,7 +24,7 @@ def game():
     ground = []
     solid_tiles_group = pygame.sprite.Group()
     ghost_tiles_group = pygame.sprite.Group()
-    ground = generate_level('map.txt', ghost_tiles_group, solid_tiles_group, ground)
+    ground = generate_level(f'{map_name}', ghost_tiles_group, solid_tiles_group, ground)
 
     resources_list = []
 

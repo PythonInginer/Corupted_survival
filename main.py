@@ -7,6 +7,7 @@ import sys
 pygame.init()
 W, H = pygame.display.Info().current_w, pygame.display.Info().current_h
 FPS = 60
+map_name = 'map.txt'
 
 pygame.display.set_caption('Corupted world')  # название
 screen = pygame.display.set_mode((W, H))  # объявляю дисплей
@@ -24,7 +25,7 @@ settings = Settings(manager)
 clock = pygame.time.Clock()
 
 in_main = True
-select_section = None
+select_section = 0
 running = True
 while running:
     screen.blit(bg_im, (0, 0))
@@ -40,7 +41,7 @@ while running:
                         in_main = False
                 else:
                     if select_section == 1:
-                        select_section, running = single_player.btn_press_detection(event.ui_element, mm)
+                        select_section, running, map_name = single_player.btn_press_detection(event.ui_element, mm)
                         if select_section == 0:
                             in_main = True
                     elif select_section == 2:
@@ -66,4 +67,4 @@ while running:
     pygame.display.update()
     clock.tick(FPS)
 
-Game.game()
+Game.game(map_name)
