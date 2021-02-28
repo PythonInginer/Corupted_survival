@@ -68,7 +68,7 @@ class MainMenu:
 
     def always_show(self):
         text_creator('Заражённый мир', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
-        text_creator('alpha V 0.0.1', self.screen, 30, (0, 0, 0), (20, 1060), None, True)
+        text_creator('alpha V 0.0.8.7', self.screen, 30, (0, 0, 0), (20, 1060), None, True)
 
 
 class SinglePlayer:
@@ -179,9 +179,10 @@ class MultiPlayer:
 
 
 class Settings:
-    def __init__(self, manager):
+    def __init__(self, manager, screen):
         super().__init__()
         self.manager = manager
+        self.screen = screen
 
         self.back_btn = self.create_btn(20, 20, 100, 40, '<--')
 
@@ -206,3 +207,19 @@ class Settings:
             self.hide_all()
             main.show_all()
             return 0
+
+    def always_show(self):
+        text_creator('Настройки', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True
+                     )
+        text_creator('О разработчиках', self.screen, 100, (0, 0, 0), (300, 400), 'data/fonts/cursed.ttf', True
+                     )
+        text_creator('By GrayBreadCompany', self.screen, 65, (0, 0, 0), (300, 540), 'data/fonts/cursed.ttf', True
+                     )
+        text_creator('Нечетов Глеб - Программист', self.screen, 45, (0, 0, 0), (300, 600), 'data/fonts/cursed.ttf', True
+                     )
+        text_creator('Савченко Сергей - Программист', self.screen, 45, (0, 0, 0), (300, 650), 'data/fonts/cursed.ttf',
+                     True
+                     )
+        text_creator('Хаустов Михаил - Художник, Sound-дизайнер', self.screen, 45, (0, 0, 0), (300, 700),
+                     'data/fonts/cursed.ttf', True
+                     )

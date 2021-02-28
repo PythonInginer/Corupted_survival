@@ -29,7 +29,7 @@ def main():
     mm = MainMenu(manager, W, H, screen)  # подгружаю меню
     single_player = SinglePlayer(manager, screen)
     multi_player = MultiPlayer(manager, screen)
-    settings = Settings(manager)
+    settings = Settings(manager, screen)
 
     clock = pygame.time.Clock()
 
@@ -72,7 +72,7 @@ def main():
         elif select_section == 2:
             multi_player.always_show()
         elif select_section == 3:
-            pass
+            settings.always_show()
 
         manager.update(clock.tick())
         manager.draw_ui(screen)
