@@ -4,9 +4,15 @@ from MainMenu import *
 import Game
 import sys
 
+pygame.init()
+pygame.mixer.music.load('data/music/Embient_menu.mp3')
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.5)
+Klick = pygame.mixer.Sound('data/music/btn_pressed.ogg')
+
 
 def main():
-    pygame.init()
+    pygame.mixer.music.unpause()
     W, H = pygame.display.Info().current_w, pygame.display.Info().current_h
     FPS = 60
     map_name = 'map.txt'
@@ -37,6 +43,7 @@ def main():
                 sys.exit()
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    Klick.play()
                     if in_main:
                         select_section = mm.detect(event.ui_element, (single_player, multi_player, settings))
                         if select_section in (1, 2, 3):
@@ -48,10 +55,12 @@ def main():
                                 in_main = True
                         elif select_section == 2:
                             select_section = multi_player.btn_press_detection(event.ui_element, mm)
-                            in_main = True
+                            if select_section == 0:
+                                in_main = True
                         elif select_section == 3:
                             select_section = settings.btn_press_detection(event.ui_element, mm)
-                            in_main = True
+                            if select_section == 0:
+                                in_main = True
 
             manager.process_events(event)
 

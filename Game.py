@@ -8,6 +8,7 @@ from Flint import Flint
 
 
 def game(map_name, main):
+    pygame.mixer.music.pause()
     pygame.init()
     size = width, height = 1920, 1080
     screen = pygame.display.set_mode(size)

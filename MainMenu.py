@@ -168,14 +168,11 @@ class MultiPlayer:
     def show_all(self):
         self.back_btn.show()
 
-    def close_this(self, main):
-        self.hide_all()
-        main.show_all()
-        return None
-
     def btn_press_detection(self, ui_el, main):
         if ui_el == self.back_btn:
-            self.close_this(main)
+            self.hide_all()
+            main.show_all()
+            return 0
 
     def always_show(self):
         text_creator('В ДОРАБОТКЕ, возвращайтесь позже =)', self.screen, 80, (0, 0, 0), (400, 470), None, True)
@@ -204,11 +201,8 @@ class Settings:
     def show_all(self):
         self.back_btn.show()
 
-    def close_this(self, main):
-        self.hide_all()
-        main.show_all()
-        return None
-
     def btn_press_detection(self, ui_el, main):
         if ui_el == self.back_btn:
-            self.close_this(main)
+            self.hide_all()
+            main.show_all()
+            return 0
