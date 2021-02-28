@@ -68,7 +68,7 @@ class MainMenu:
 
     def always_show(self):
         text_creator('Заражённый мир', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
-        text_creator('alpha V 0.0.8.8', self.screen, 30, (0, 0, 0), (20, 1060), None, True)
+        text_creator('alpha V 0.0.8.9', self.screen, 30, (0, 0, 0), (20, 1060), None, True)
 
 
 class SinglePlayer:

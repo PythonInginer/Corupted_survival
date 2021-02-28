@@ -1,8 +1,5 @@
-import pygame
-import pygame_gui
-from MainMenu import *
 import Game
-import sys
+from MainMenu import *
 
 pygame.mixer.pre_init(44100, -16, 1, 512)
 pygame.init()
