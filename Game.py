@@ -58,10 +58,16 @@ def game(map_name, main):
                     if len(player_sprite.inventory) < 8:
                         for i in range(len(resources_list)):
                             if player_sprite.rect.colliderect(resources_list[i].rect):
-                                if type(resources_list[i]) not in player_sprite.inventory.keys():
-                                    player_sprite.inventory[type(resources_list[i])] = [resources_list[i]]
+                                if player_sprite.inventory:
+                                    has = False
+                                    for j in range(len(player_sprite.inventory)):
+                                        if resources_list[i].name == player_sprite.inventory[j][0]:
+                                            player_sprite.inventory[j][1] += 1
+                                            has = True
+                                    if not has:
+                                        player_sprite.inventory.append([resources_list[i].name, 1])
                                 else:
-                                    player_sprite.inventory[type(resources_list[i])].append(resources_list[i])
+                                    player_sprite.inventory.append([resources_list[i].name, 1])
                                 del resources_list[i]
 
                                 resources.empty()
@@ -105,6 +111,8 @@ def game(map_name, main):
                         if player_sprite.exit_button.collidepoint(event.pos[0], event.pos[1]):
                             running = False
                             main()
+                        if player_sprite.craft_button.collidepoint(event.pos[0], event.pos[1]):
+                            player_sprite.craft()
             elif event.type == pygame.MOUSEWHEEL:
                 player_sprite.change_active_with_mouse(event.y)
 

@@ -5,6 +5,8 @@ from Axe import Axe
 from PickAxe import PickAxe
 from Spear import Spear
 from Rope import Rope
+from Flint import Flint
+from Stick import Stick
 
 
 class Player(pygame.sprite.Sprite):
@@ -17,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.field_x = 0
         self.field_y = 0
 
-        self.inventory = {}
+        self.inventory = []
         self.active = 0
         self.active_in_menu = 0
         self.can_move = True
@@ -59,14 +61,18 @@ class Player(pygame.sprite.Sprite):
                 pygame.draw.rect(screen, "white", (100 * i + 200, 980, 100, 100), 6)
             else:
                 pygame.draw.rect(screen, "white", (100 * i + 200, 980, 100, 100), 1)
-        for i in self.inventory.keys():
+        for i in range(len(self.inventory)):
             temp = pygame.sprite.Group()
-            self.inventory[i][0].rect.x = 100 * k + 200
-            self.inventory[i][0].rect.y = 980
+            if self.inventory[i][0] == "flint":
+                sprite = Flint()
+            elif self.inventory[i][0] == "stick":
+                sprite = Stick()
+            sprite.rect.x = 100 * k + 200
+            sprite.rect.y = 980
             font = pygame.font.Font(None, 50)
-            text = font.render(str(len(self.inventory[i])), True, (100, 255, 100))
+            text = font.render(str(self.inventory[i][1]), True, (100, 255, 100))
             screen.blit(text, (100 * k + 200, 1030))
-            temp.add(self.inventory[i][0])
+            temp.add(sprite)
             temp.draw(screen)
             temp.empty()
             k += 1
@@ -79,22 +85,48 @@ class Player(pygame.sprite.Sprite):
                     pygame.draw.rect(screen, "white", (10, 100 * i + 100, 100, 100), 1)
 
             o = self.k + 3
-            group = pygame.sprite.Group()
-            recipes_list = list(recipes)
+            self.group = pygame.sprite.Group()
+            self.recipes_list = list(recipes)
+            flag = True
+            h = 0
             for i in range(self.k, o):
-                if 100 <= 100 * k + 100 <= 300:
-                    if recipes_list[i] == "axe":
+                if 100 <= 100 * self.k + 100 <= 300:
+                    if self.recipes_list[i] == "axe":
                         sprite = Axe()
-                    elif recipes_list[i] == "pickaxe":
+                    elif self.recipes_list[i] == "pickaxe":
                         sprite = PickAxe()
-                    elif recipes_list[i] == "spear":
+                    elif self.recipes_list[i] == "spear":
                         sprite = Spear()
-                    elif recipes_list[i] == "rope":
+                    elif self.recipes_list[i] == "rope":
                         sprite = Rope()
-                    sprite.rect.x = 10
-                    sprite.rect.y = 100 * (i - self.k) + 100
-                    group.add(sprite)
-            group.draw(screen)
+                if flag:
+                    for j in recipes.keys():
+                        if j == self.recipes_list[self.active_in_menu + self.k]:
+                            for k in recipes[j]:
+                                pygame.draw.rect(screen, "white", ((120 * h * 0.6 + 120,
+                                                                    100 * self.active_in_menu + 100),
+                                                                   (50, 50)), 1)
+                                if k == "flint":
+                                    sprite2 = Flint()
+                                    sprite2.rect.x = 120 * h * 0.6 + 120
+                                    sprite2.rect.y = 100 * self.active_in_menu + 100
+                                    self.group.add(sprite2)
+                                elif k == "stick":
+                                    sprite2 = Stick()
+                                    sprite2.rect.x = 120 * h * 0.6 + 120
+                                    sprite2.rect.y = 100 * self.active_in_menu + 100
+                                    self.group.add(sprite2)
+                                h += 1
+                    flag = False
+                sprite.rect.x = 10
+                sprite.rect.y = 100 * (i - self.k) + 100
+                self.group.add(sprite)
+            self.group.draw(screen)
+
+            self.craft_button = pygame.Rect(150, 300, 250, 80)
+            font = pygame.font.Font(None, 50)
+            text = font.render("Создать", True, (0, 0, 0))
+            screen.blit(text, (150, 300))
 
             self.exit_button = pygame.Rect(1600, 1000, 320, 80)
             font = pygame.font.Font(None, 50)
@@ -125,3 +157,7 @@ class Player(pygame.sprite.Sprite):
             self.active_in_menu = 2
         if (self.active_in_menu == 3 or self.active_in_menu == -1) and self.k == 0:
             self.active_in_menu = 0
+
+    def craft(self):
+        # self.recipes_list[self.active_in_menu + self.k]
+        print(self.inventory)

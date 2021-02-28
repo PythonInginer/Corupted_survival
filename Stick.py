@@ -11,6 +11,7 @@ class Stick(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.field_x = random.randint(-950, 950)
         self.field_y = random.randint(-530, 530)
+        self.name = "stick"
 
     def render(self, player_sprite):
         if abs(self.field_x - player_sprite.field_x) <= 1920 and \

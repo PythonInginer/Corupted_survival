@@ -9,6 +9,7 @@ class Spear(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.field_x = -1
         self.field_y = -1
+        self.name = "spear"
 
     def render(self, player_sprite):
         if abs(self.field_x - player_sprite.field_x) <= 1920 and \
