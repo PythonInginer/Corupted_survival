@@ -133,6 +133,10 @@ def game(map_name, main):
             resources_list[i].render(player_sprite)
         resources.draw(screen)
 
+        pygame.draw.rect(screen, (100, 100, 100), ((0, 0), (200, 100)))
+        screen.blit(pygame.font.Font(None, 50).render('HP:100/100', True, (255, 0, 0)), (0, 0))
+        screen.blit(pygame.font.Font(None, 50).render('MP:500/500', True, (0, 0, 255)), (0, 50))
+
         player_sprite.move(tick, solid_tiles_group)
         player.draw(screen)
         player_sprite.draw_gui(screen)
