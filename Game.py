@@ -6,10 +6,16 @@ from LoadMap import generate_level
 from Stick import Stick
 from Flint import Flint
 
+pygame.mixer.pre_init(44100, -16, 1, 512)
+pygame.init()
+
 
 def game(map_name, main):
-    pygame.mixer.music.pause()
-    pygame.init()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load('data/music/Desert_theme.mp3')
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.1)
+
     size = width, height = 1920, 1080
     screen = pygame.display.set_mode(size)
 

@@ -6,14 +6,14 @@ import sys
 
 pygame.mixer.pre_init(44100, -16, 1, 512)
 pygame.init()
-pygame.mixer.music.load('data/music/Embient_menu.mp3')
-pygame.mixer.music.play(-1)
-pygame.mixer.music.set_volume(0.5)
 Klick = pygame.mixer.Sound('data/music/btn_pressed.ogg')
 
 
 def main():
-    pygame.mixer.music.unpause()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load('data/music/Embient_menu.mp3')
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.5)
     W, H = pygame.display.Info().current_w, pygame.display.Info().current_h
     FPS = 60
     map_name = 'map.txt'
