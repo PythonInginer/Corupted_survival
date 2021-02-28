@@ -19,5 +19,10 @@ recipes = \
         "rope":
             {
                 "cursed_grass": 4
+            },
+        "knife":
+            {
+                "flint": 1,
+                "stick": 1
             }
     }

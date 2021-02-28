@@ -129,6 +129,14 @@ class Player(pygame.sprite.Sprite):
                                     sprite2 = CursedGrass()
                                     sprite2.rect.x = 120 * h * 0.6 + 120
                                     sprite2.rect.y = 100 * self.active_in_menu + 100
+                                elif k == "pickaxe":
+                                    sprite2 = PickAxe()
+                                    sprite2.rect.x = 120 * h * 0.6 + 120
+                                    sprite2.rect.y = 100 * self.active_in_menu + 100
+                                elif k == "spear":
+                                    sprite2 = Spear()
+                                    sprite2.rect.x = 120 * h * 0.6 + 120
+                                    sprite2.rect.y = 100 * self.active_in_menu + 100
                                 self.group.add(sprite2)
                                 h += 1
                     flag = False
@@ -137,7 +145,7 @@ class Player(pygame.sprite.Sprite):
                 self.group.add(sprite)
             self.group.draw(screen)
 
-            self.craft_button = pygame.Rect(150, 300, 250, 80)
+            self.craft_button = pygame.Rect(150, 400, 250, 80)
             font = pygame.font.Font(None, 50)
             text = font.render("Создать", True, (0, 0, 0))
             screen.blit(text, (150, 400))
@@ -180,6 +188,7 @@ class Player(pygame.sprite.Sprite):
                     if recipes[self.recipes_list[self.active_in_menu + self.k]][i] <= self.inventory[j][1]:
                         count += 1
         if count == len(recipes[self.recipes_list[self.active_in_menu + self.k]]):
+            print(self.recipes_list[self.active_in_menu + self.k])
             for i in recipes[self.recipes_list[self.active_in_menu + self.k]]:
                 for j in range(len(self.inventory)):
                     if i == self.inventory[j][0]:
