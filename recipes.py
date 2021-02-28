@@ -18,6 +18,6 @@ recipes = \
             },
         "rope":
             {
-                "grass": 4
+                "cursed_grass": 4
             }
     }

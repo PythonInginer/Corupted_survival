@@ -7,6 +7,7 @@ from Spear import Spear
 from Rope import Rope
 from Flint import Flint
 from Stick import Stick
+from CursedGrass import CursedGrass
 
 
 class Player(pygame.sprite.Sprite):
@@ -71,6 +72,8 @@ class Player(pygame.sprite.Sprite):
                 sprite = Axe()
             elif self.inventory[i][0] == "pickaxe":
                 sprite = PickAxe()
+            elif self.inventory[i][0] == "rope":
+                sprite = Rope()
             sprite.rect.x = 100 * k + 200
             sprite.rect.y = 980
             font = pygame.font.Font(None, 50)
@@ -114,12 +117,19 @@ class Player(pygame.sprite.Sprite):
                                     sprite2 = Flint()
                                     sprite2.rect.x = 120 * h * 0.6 + 120
                                     sprite2.rect.y = 100 * self.active_in_menu + 100
-                                    self.group.add(sprite2)
                                 elif k == "stick":
                                     sprite2 = Stick()
                                     sprite2.rect.x = 120 * h * 0.6 + 120
                                     sprite2.rect.y = 100 * self.active_in_menu + 100
-                                    self.group.add(sprite2)
+                                elif k == "rope":
+                                    sprite2 = Rope()
+                                    sprite2.rect.x = 120 * h * 0.6 + 120
+                                    sprite2.rect.y = 100 * self.active_in_menu + 100
+                                elif k == "cursed_grass":
+                                    sprite2 = CursedGrass()
+                                    sprite2.rect.x = 120 * h * 0.6 + 120
+                                    sprite2.rect.y = 100 * self.active_in_menu + 100
+                                self.group.add(sprite2)
                                 h += 1
                     flag = False
                 sprite.rect.x = 10
@@ -130,7 +140,7 @@ class Player(pygame.sprite.Sprite):
             self.craft_button = pygame.Rect(150, 300, 250, 80)
             font = pygame.font.Font(None, 50)
             text = font.render("Создать", True, (0, 0, 0))
-            screen.blit(text, (150, 300))
+            screen.blit(text, (150, 400))
 
             self.exit_button = pygame.Rect(1600, 1000, 320, 80)
             font = pygame.font.Font(None, 50)
@@ -179,5 +189,3 @@ class Player(pygame.sprite.Sprite):
         for i in range(len(self.inventory) - 1, -1, -1):
             if self.inventory[i][1] == 0:
                 del self.inventory[i]
-        # self.recipes_list[self.active_in_menu + self.k]
-        # print(self.inventory)
