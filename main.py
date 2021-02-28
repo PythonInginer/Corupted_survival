@@ -4,6 +4,7 @@ from MainMenu import *
 import Game
 import sys
 
+pygame.mixer.pre_init(44100, -16, 1, 512)
 pygame.init()
 pygame.mixer.music.load('data/music/Embient_menu.mp3')
 pygame.mixer.music.play(-1)
