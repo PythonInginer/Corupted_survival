@@ -130,6 +130,7 @@ class Player(pygame.sprite.Sprite):
                                     sprite2.rect.x = 120 * h * 0.6 + 120
                                     sprite2.rect.y = 100 * self.active_in_menu + 100
                                 self.group.add(sprite2)
+                                print()
                                 h += 1
                     flag = False
                 sprite.rect.x = 10
