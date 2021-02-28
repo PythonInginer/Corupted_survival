@@ -23,7 +23,7 @@ class MainMenu:
         self.multi_player_btn = self.create_btn(w_center,
                                                 (self.h - 50) // 2 - 60, btn_size_x, 50, 'Многопользовательская игра')
         self.settings_btn = self.create_btn(w_center,
-                                            (self.h - 50) // 2, btn_size_x, 50, 'Настройки')
+                                            (self.h - 50) // 2, btn_size_x, 50, 'О разработчиках')
         self.exit_btn = self.create_btn(w_center,
                                         (self.h - 50) // 2 + 60, btn_size_x, 50, 'Выход')
 
@@ -68,7 +68,7 @@ class MainMenu:
 
     def always_show(self):
         text_creator('Заражённый мир', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True)
-        text_creator('alpha V 0.0.8.7', self.screen, 30, (0, 0, 0), (20, 1060), None, True)
+        text_creator('alpha V 0.0.8.8', self.screen, 30, (0, 0, 0), (20, 1060), None, True)
 
 
 class SinglePlayer:
@@ -209,8 +209,8 @@ class Settings:
             return 0
 
     def always_show(self):
-        text_creator('Настройки', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True
-                     )
+        # text_creator('Настройки', self.screen, 120, (0, 0, 0), (720, 100), 'data/fonts/cursed.ttf', True
+        #              )
         text_creator('О разработчиках', self.screen, 100, (0, 0, 0), (300, 400), 'data/fonts/cursed.ttf', True
                      )
         text_creator('By GrayBreadCompany', self.screen, 65, (0, 0, 0), (300, 540), 'data/fonts/cursed.ttf', True
