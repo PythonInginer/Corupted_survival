@@ -67,6 +67,10 @@ class Player(pygame.sprite.Sprite):
                 sprite = Flint()
             elif self.inventory[i][0] == "stick":
                 sprite = Stick()
+            elif self.inventory[i][0] == "axe":
+                sprite = Axe()
+            elif self.inventory[i][0] == "pickaxe":
+                sprite = PickAxe()
             sprite.rect.x = 100 * k + 200
             sprite.rect.y = 980
             font = pygame.font.Font(None, 50)
@@ -159,5 +163,21 @@ class Player(pygame.sprite.Sprite):
             self.active_in_menu = 0
 
     def craft(self):
+        count = 0
+        for i in recipes[self.recipes_list[self.active_in_menu + self.k]]:
+            for j in range(len(self.inventory)):
+                if i == self.inventory[j][0]:
+                    if recipes[self.recipes_list[self.active_in_menu + self.k]][i] <= self.inventory[j][1]:
+                        count += 1
+        if count == len(recipes[self.recipes_list[self.active_in_menu + self.k]]):
+            for i in recipes[self.recipes_list[self.active_in_menu + self.k]]:
+                for j in range(len(self.inventory)):
+                    if i == self.inventory[j][0]:
+                        if recipes[self.recipes_list[self.active_in_menu + self.k]][i] <= self.inventory[j][1]:
+                            self.inventory[j][1] -= recipes[self.recipes_list[self.active_in_menu + self.k]][i]
+            self.inventory.append([self.recipes_list[self.active_in_menu + self.k], 1])
+        for i in range(len(self.inventory) - 1, -1, -1):
+            if self.inventory[i][1] == 0:
+                del self.inventory[i]
         # self.recipes_list[self.active_in_menu + self.k]
-        print(self.inventory)
+        # print(self.inventory)
